@@ -1,7 +1,5 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
-import { CommonModule } from "@angular/common";
-import { BrowserModule } from "@angular/platform-browser";
 import { LayoutComponent } from "./modules/layout/layout/layout.component";
 import { LoginComponent } from "./modules/security/login/login.component";
 
@@ -27,8 +25,8 @@ export const routes: Routes = [
         loadChildren: "./modules/book/book.module#BookModule"
       },
       {
-        path: "security",
-        loadChildren: "./modules/security/security.module#SecurityModule"
+        path: "settings",
+        loadChildren: "./modules/settings/settings.module#SettingsModule"
       }
     ]
   }

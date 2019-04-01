@@ -4,13 +4,8 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { ToastrModule } from "ngx-toastr";
-
 import { AppRoutingModule } from "./app-routing.module";
-import { ComponentsModule } from "./components/components.module";
-
 import { AppComponent } from "./app.component";
-
-import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { TokenInterceptor } from "./token-interceptor";
 import { SharedModule } from "./modules/shared/shared.module";
 import { SecurityModule } from "./modules/security/security.module";
@@ -21,7 +16,6 @@ import { LayoutModule } from "./modules/layout/layout.module";
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    ComponentsModule,
     RouterModule,
     AppRoutingModule,
     LayoutModule,

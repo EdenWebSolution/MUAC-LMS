@@ -14,7 +14,7 @@ export const ROUTES: RouteInfo[] = [
     class: ""
   },
   {
-    path: "/muac/books",
+    path: "/muac/book/details",
     title: "Books",
     icon: "location_map-big",
     class: ""
