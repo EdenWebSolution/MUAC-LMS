@@ -8,7 +8,7 @@
     href="https://www.creative-tim.com"
     class="simple-text logo-normal text-wrap"
   >
-    Mawahibul Uloom Arabic College
+    كلية مواهبل العلوم العربية
   </a>
 </div>
 <div class="sidebar-wrapper">
@@ -18,9 +18,24 @@
       *ngFor="let menuItem of menuItems"
       class="{{ menuItem.class }} nav-item"
     >
-      <a [routerLink]="[menuItem.path]">
-        <i class="now-ui-icons {{ menuItem.icon }}"></i>
-        <p>{{ menuItem.title }}</p>
+      <a [routerLink]="[menuItem.path]" *ngIf="menuItem.path !== ''">
+        <div *ngIf="menuItem.isSubPath == false">
+          <i class="now-ui-icons {{ menuItem.icon }}"></i>
+          <p>{{ menuItem.title }}</p>
+        </div>
+        <ul *ngIf="menuItem.isSubPath == true">
+          <li>
+            <a
+              ><p>{{ menuItem.title }}</p></a
+            >
+          </li>
+        </ul>
+      </a>
+      <a *ngIf="menuItem.path == ''">
+        <div *ngIf="menuItem.isSubPath == false">
+          <i class="now-ui-icons {{ menuItem.icon }}"></i>
+          <p>{{ menuItem.title }}</p>
+        </div>
       </a>
     </li>
   </ul>

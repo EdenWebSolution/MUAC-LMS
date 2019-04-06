@@ -5,9 +5,10 @@ import { BookRoutingModule } from "./book-routing.module";
 import { SharedModule } from "../shared/shared.module";
 import { BookCreateComponent } from './book-create/book-create.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
+import { BookViewComponent } from './book-view/book-view.component';
 
 @NgModule({
-  declarations: [BookCreateComponent, BookDetailsComponent],
+  declarations: [BookCreateComponent, BookDetailsComponent, BookViewComponent],
   imports: [CommonModule, BookRoutingModule, SharedModule]
 })
 export class BookModule {}

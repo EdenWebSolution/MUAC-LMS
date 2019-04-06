@@ -1,46 +1,26 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { TeacherCreateComponent } from "./teacher/teacher-create/teacher-create.component";
-import { TeacherDetailsComponent } from "./teacher/teacher-details/teacher-details.component";
-import { StudentCreateComponent } from "./student/student-create/student-create.component";
-import { StudentDetailsComponent } from "./student/student-details/student-details.component";
-import { MainCategoryCreateComponent } from "./category/main-category/main-category-create/main-category-create.component";
-import { MainCategoryDetailsComponent } from "./category/main-category/main-category-details/main-category-details.component";
-import { SubCategoryCreateComponent } from "./category/sub-category/sub-category-create/sub-category-create.component";
-import { SubCategoryDetailsComponent } from "./category/sub-category/sub-category-details/sub-category-details.component";
+import { MainCategoryViewComponent } from "./category/main-category/main-category-view/main-category-view.component";
+import { SubCategoryViewComponent } from "./category/sub-category/sub-category-view/sub-category-view.component";
+import { TeacherViewComponent } from "./teacher/teacher-view/teacher-view.component";
+import { StudentViewComponent } from "./student/student-view/student-view.component";
 
 const routes: Routes = [
   {
-    path: "teacher/create",
-    component: TeacherCreateComponent
+    path: "teacher/view",
+    component: TeacherViewComponent
   },
   {
-    path: "teacher/details",
-    component: TeacherDetailsComponent
+    path: "student/view",
+    component: StudentViewComponent
   },
   {
-    path: "student/create",
-    component: StudentCreateComponent
+    path: "maincategory/view",
+    component: MainCategoryViewComponent
   },
   {
-    path: "student/details",
-    component: StudentDetailsComponent
-  },
-  {
-    path: "maincategory/create",
-    component: MainCategoryCreateComponent
-  },
-  {
-    path: "maincategory/details",
-    component: MainCategoryDetailsComponent
-  },
-  {
-    path: "subcategory/create",
-    component: SubCategoryCreateComponent
-  },
-  {
-    path: "subcategory/details",
-    component: SubCategoryDetailsComponent
+    path: "subcategory/view",
+    component: SubCategoryViewComponent
   }
 ];
 

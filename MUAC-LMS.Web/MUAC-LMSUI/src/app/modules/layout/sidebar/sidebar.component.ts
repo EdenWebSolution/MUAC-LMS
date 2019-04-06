@@ -5,37 +5,71 @@ declare interface RouteInfo {
   title: string;
   icon: string;
   class: string;
+  isSubPath: boolean;
 }
 export const ROUTES: RouteInfo[] = [
   {
     path: "/muac/dashboard",
-    title: "Dashboard",
+    title: "لوحة القيادة",
     icon: "business_chart-bar-32",
-    class: ""
+    class: "",
+    isSubPath: false
   },
   {
     path: "/muac/book/details",
-    title: "Books",
+    title: "كتب",
     icon: "location_map-big",
-    class: ""
+    class: "",
+    isSubPath: false
   },
   {
     path: "/muac/borrow",
-    title: "Borrowing",
+    title: "الاقتراض",
     icon: "arrows-1_share-66",
-    class: ""
+    class: "",
+    isSubPath: false
   },
   {
     path: "/muac/reports",
-    title: "Reports",
+    title: "تقارير",
     icon: "files_single-copy-04",
-    class: ""
+    class: "",
+    isSubPath: false
   },
   {
-    path: "/muac/settings",
-    title: "Settings",
+    path: "",
+    title: "الإعدادات",
     icon: "ui-1_settings-gear-63",
-    class: ""
+    class: "",
+    isSubPath: false
+  },
+  {
+    path: "/muac/settings/teacher/view",
+    title: "مدرس",
+    icon: "ui-1_settings-gear-63",
+    class: "",
+    isSubPath: true
+  },
+  {
+    path: "/muac/settings/student/view",
+    title: "طالب علم",
+    icon: "ui-1_settings-gear-63",
+    class: "",
+    isSubPath: true
+  },
+  {
+    path: "/muac/settings/maincategory/view",
+    title: "الفئة العامة",
+    icon: "ui-1_settings-gear-63",
+    class: "",
+    isSubPath: true
+  },
+  {
+    path: "/muac/settings/subcategory/view",
+    title: "الفئة الفرعية",
+    icon: "ui-1_settings-gear-63",
+    class: "",
+    isSubPath: true
   }
 ];
 
