@@ -16,7 +16,7 @@
     height: 100%;
     bottom: 0;
     width: 260px;
-    left: 0;
+    right: 0;
     z-index: 1030;
 
     .sidebar-wrapper{
@@ -95,7 +95,7 @@
                 position: relative;
                 text-transform: uppercase;
                 cursor: pointer;
-                font-size: $font-size-mini;
+                // font-size: $font-size-mini;
                 padding: 10px 8px;
                 line-height: $line-height-nav-link;
             }
@@ -115,7 +115,7 @@
 
             &.active > a,
             &.active-pro > a{
-              background-color: $white-color;
+              background-color: #1a3b62;
               box-shadow: $box-shadow;
               i{
                 color: $danger-color;
@@ -139,11 +139,12 @@
             display: block;
             height: auto;
             white-space: nowrap;
+            text-align: right;
         }
 
         i{
             font-size: 20px;
-            float: left;
+            float: right;
             margin-right: 12px;
             line-height: 30px;
             width: 34px;
@@ -273,6 +274,9 @@
     &[data-color="green"]{
       @include sidebar-color($success-color);
     }
+    &[data-color="custom"]{
+      @include sidebar-color($dashboard-green);
+    }
     &[data-color="orange"]{
       @include sidebar-color($orange-color);
     }
@@ -307,7 +311,7 @@
 
 .main-panel{
     position: relative;
-    float: right;
+    float: left;
     width: $sidebar-width;
     // width: 100%;
     background-color: $light-gray;
