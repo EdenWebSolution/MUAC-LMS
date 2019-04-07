@@ -11,6 +11,7 @@ using MUAC_LMS.Data;
 using MUAC_LMS.Domain.User;
 using System.Text;
 using AutoMapper;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace MUAC_LMS.Web
 {
@@ -55,8 +56,22 @@ namespace MUAC_LMS.Web
 
             services.AddAutoMapper();
 
+            ServiceInjector.InjectServices(services);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "MUAC-LMS API",
+                    Description = "Mawahibul Uloom Arabic College",
+                    TermsOfService = "None",
+                    Contact = new Contact() { Name = "MUAC-LMS"/*, Email = "contact@talkingdotnet.com", Url = "www.talkingdotnet.com"*/ }
+                });
+            });
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -66,7 +81,7 @@ namespace MUAC_LMS.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<StoreUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -74,17 +89,31 @@ namespace MUAC_LMS.Web
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                //app.UseExceptionHandler("/Error");
+                 app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
+
+            DefaultInitializer.SeedUsers(userManager);
+
             app.UseSpaStaticFiles();
+
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200")/*.AllowAnyOrigin()*/.AllowAnyHeader().AllowAnyMethod());
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MUAC-LMS API V1");
             });
 
             app.UseSpa(spa =>
