@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190407055458_added Sub Category table.cs" />
+    <Compile Remove="Migrations\20190407055458_added Sub Category table.Designer.cs" />
+    <Compile Remove="Migrations\20190407063620_added Book Borrow table.cs" />
+    <Compile Remove="Migrations\20190407063620_added Book Borrow table.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.4">

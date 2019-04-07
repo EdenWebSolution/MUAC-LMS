@@ -4,14 +4,16 @@ using MUAC_LMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MUAC_LMS.Data.Migrations
 {
     [DbContext(typeof(MUACContext))]
-    partial class MUACContextModelSnapshot : ModelSnapshot
+    [Migration("20190407060602_added Book table")]
+    partial class addedBooktable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,8 +141,6 @@ namespace MUAC_LMS.Data.Migrations
 
                     b.Property<string>("CreatedById");
 
-                    b.Property<DateTimeOffset>("CreatedOn");
-
                     b.Property<string>("EditedById");
 
                     b.Property<DateTimeOffset?>("EditedOn");
@@ -166,41 +166,6 @@ namespace MUAC_LMS.Data.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("MUAC_LMS.Domain.BookBorrow", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BookBorrowStatus");
-
-                    b.Property<int>("BookId");
-
-                    b.Property<string>("CreatedById");
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<string>("EditedById");
-
-                    b.Property<DateTimeOffset?>("EditedOn");
-
-                    b.Property<DateTimeOffset>("FromDate");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("StoreUserId");
-
-                    b.Property<DateTimeOffset>("ToDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("StoreUserId");
-
-                    b.ToTable("BookBorrows");
-                });
-
             modelBuilder.Entity("MUAC_LMS.Domain.MainCategory", b =>
                 {
                     b.Property<int>("Id")
@@ -208,8 +173,6 @@ namespace MUAC_LMS.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CreatedById");
-
-                    b.Property<DateTimeOffset>("CreatedOn");
 
                     b.Property<string>("EditedById");
 
@@ -224,33 +187,6 @@ namespace MUAC_LMS.Data.Migrations
                     b.ToTable("MainCategories");
                 });
 
-            modelBuilder.Entity("MUAC_LMS.Domain.StudentGrade", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedById");
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<string>("EditedById");
-
-                    b.Property<DateTimeOffset?>("EditedOn");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("StoreUserId");
-
-                    b.Property<int>("StudentGrades");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StoreUserId");
-
-                    b.ToTable("StudentGrades");
-                });
-
             modelBuilder.Entity("MUAC_LMS.Domain.SubCategory", b =>
                 {
                     b.Property<int>("Id")
@@ -258,8 +194,6 @@ namespace MUAC_LMS.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CreatedById");
-
-                    b.Property<DateTimeOffset>("CreatedOn");
 
                     b.Property<string>("EditedById");
 
@@ -387,25 +321,6 @@ namespace MUAC_LMS.Data.Migrations
                         .WithMany()
                         .HasForeignKey("SubCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("MUAC_LMS.Domain.BookBorrow", b =>
-                {
-                    b.HasOne("MUAC_LMS.Domain.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("MUAC_LMS.Domain.User.StoreUser", "StoreUser")
-                        .WithMany()
-                        .HasForeignKey("StoreUserId");
-                });
-
-            modelBuilder.Entity("MUAC_LMS.Domain.StudentGrade", b =>
-                {
-                    b.HasOne("MUAC_LMS.Domain.User.StoreUser", "StoreUser")
-                        .WithMany()
-                        .HasForeignKey("StoreUserId");
                 });
 
             modelBuilder.Entity("MUAC_LMS.Domain.SubCategory", b =>

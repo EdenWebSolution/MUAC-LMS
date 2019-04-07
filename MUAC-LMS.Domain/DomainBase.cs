@@ -9,6 +9,7 @@ namespace MUAC_LMS.Domain
         public string CreatedById { get; set; }
         public string EditedById { get; set; }
         public DateTimeOffset? EditedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.UtcNow;
         public bool IsDeleted { get; set; }
     }
 }

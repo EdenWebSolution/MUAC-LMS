@@ -13,5 +13,22 @@ namespace MUAC_LMS.Data
         public MUACContext(DbContextOptions<MUACContext> options) : base(options) { }
 
         public DbSet<MainCategory> MainCategories { get; set; }
+
+        public DbSet<SubCategory> SubCategories { get; set; }
+
+        public DbSet<Book> Books { get; set; }
+
+        public DbSet<StudentGrade> StudentGrades { get; set; }
+
+        public DbSet<BookBorrow> BookBorrows { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Book>()
+                .HasIndex(u => u.Identity)
+                .IsUnique();
+        }
     }
 }
