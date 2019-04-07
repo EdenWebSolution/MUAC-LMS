@@ -1,0 +1,42 @@
+<div class="logo">
+  <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+    <div class="logo-img">
+      <img src="./assets/img/angular2-logo-white.png" />
+    </div>
+  </a>
+  <a
+    href="https://www.creative-tim.com"
+    class="simple-text logo-normal text-wrap"
+  >
+    كلية مواهبل العلوم العربية
+  </a>
+</div>
+<div class="sidebar-wrapper">
+  <ul class="nav">
+    <li
+      routerLinkActive="active"
+      *ngFor="let menuItem of menuItems"
+      class="{{ menuItem.class }} nav-item"
+    >
+      <a [routerLink]="[menuItem.path]" *ngIf="menuItem.path !== ''">
+        <div *ngIf="menuItem.isSubPath == false">
+          <i class="now-ui-icons {{ menuItem.icon }}"></i>
+          <p>{{ menuItem.title }}</p>
+        </div>
+        <ul *ngIf="menuItem.isSubPath == true">
+          <li>
+            <a
+              ><p>{{ menuItem.title }}</p></a
+            >
+          </li>
+        </ul>
+      </a>
+      <a *ngIf="menuItem.path == ''">
+        <div *ngIf="menuItem.isSubPath == false">
+          <i class="now-ui-icons {{ menuItem.icon }}"></i>
+          <p>{{ menuItem.title }}</p>
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>

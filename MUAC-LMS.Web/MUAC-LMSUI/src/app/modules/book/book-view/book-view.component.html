@@ -1,0 +1,8 @@
+<app-book-details
+  (showBookClicked)="showBookEventClicked($event)"
+></app-book-details>
+<div *ngIf="isShowCreate">
+  <app-book-create
+    (closeBookClicked)="closeBookEventClicked($event)"
+  ></app-book-create>
+</div>
