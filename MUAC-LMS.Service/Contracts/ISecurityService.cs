@@ -10,9 +10,9 @@ namespace MUAC_LMS.Service.Contracts
     public interface ISecurityService
     {
         Task<LoginModel> LoginAsync(LoginModel loginViewModel);
-        Task<UserModel> CreateNewUserAsync(UserModel StaffModel);
-        Task<IEnumerable<UserModel>> GetAllStaff();
-        Task DeleteStaffAsync(string id);
+        Task<UserModel> CreateNewUserAsync(UserModel userModel);
+        Task<IEnumerable<UserModel>> GetAllUsersAsync();
+        Task DeleteUserAsync(string id);
         Task ResetPasswordAsync(UserUpdateModel userUpdateModel);
     }
 }

@@ -62,12 +62,14 @@ namespace MUAC_LMS.Service.Security
             }
         }
 
-        public Task DeleteStaffAsync(string id)
+
+        public Task DeleteUserAsync(string id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<UserModel>> GetAllStaff()
+
+        public Task<IEnumerable<UserModel>> GetAllUsersAsync()
         {
             throw new NotImplementedException();
         }
