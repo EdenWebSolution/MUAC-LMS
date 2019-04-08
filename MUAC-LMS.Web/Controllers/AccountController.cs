@@ -25,7 +25,7 @@ namespace MUAC_LMS.Web.Controllers
 
         [Route("NewUser")]
         [HttpPost]
-        public async Task<IActionResult> CreateStaffAsync([FromBody]UserModel userModel)
+        public async Task<IActionResult> CreateNewUserAsync([FromBody]UserModel userModel)
         {
             try
             {
@@ -43,6 +43,51 @@ namespace MUAC_LMS.Web.Controllers
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        [Route("AllUsers")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsersAsync()
+        {
+            try
+            {
+                var result = await securityService.GetAllUsersAsync();
+                return Ok(result); ;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Something went wrong while getting user list" });
+            }
+        }
+
+        [Route("DeleteUser")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUserAsync([FromQuery] string id)
+        {
+            try
+            {
+                await securityService.DeleteUserAsync(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Something went wrong while deleting the user, try again" });
+            }
+        }
+
+        [Route("ResetPassword")]
+        [HttpPut]
+        public async Task<IActionResult> ResetPassword([FromBody] UserUpdateModel userUpdateModel)
+        {
+            try
+            {
+                await securityService.ResetPasswordAsync(userUpdateModel);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Something went wrong while updating the password, try again" });
             }
         }
 
