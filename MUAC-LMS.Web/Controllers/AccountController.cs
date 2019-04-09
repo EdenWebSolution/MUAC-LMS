@@ -23,6 +23,37 @@ namespace MUAC_LMS.Web.Controllers
             this.securityService = securityService;
         }
 
+        [Route("Authenticate")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> LoginAsync([FromBody] LoginModel loginModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await securityService.LoginAsync(loginModel);
+                    if (result.Token != null)
+                    {
+                        return Created("", result);
+                    }
+                    else
+                    {
+                        return Unauthorized();
+
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Something went wrong!");
+            }
+        }
+
         [Route("NewUser")]
         [HttpPost]
         public async Task<IActionResult> CreateNewUserAsync([FromBody]UserModel userModel)

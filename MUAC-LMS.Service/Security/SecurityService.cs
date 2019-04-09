@@ -4,13 +4,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using MUAC_LMS.Data;
 using MUAC_LMS.Domain.User;
 using MUAC_LMS.Service.Contracts;
 using MUAC_LMS.Service.Models.Account;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -89,9 +92,45 @@ namespace MUAC_LMS.Service.Security
             return await allUsers.ToListAsync();
         }
 
-        public Task<LoginModel> LoginAsync(LoginModel loginViewModel)
+        public async Task<LoginModel> LoginAsync(LoginModel loginViewModel)
         {
-            throw new NotImplementedException();
+            var user = await userManager.FindByNameAsync(loginViewModel.UserName);
+            if (user != null && !user.IsDeleted)
+            {
+                var result = await signInManager.CheckPasswordSignInAsync(user, loginViewModel.Password, false);
+
+                if (result.Succeeded)
+                {
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]));
+                    var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                    var claims = new[]
+                    {
+                        new Claim(JwtRegisteredClaimNames.Sub,user.Id),
+                        new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.UniqueName,user.UserName),
+                        new Claim("isTeacher",user.IsTeacher.ToString()),
+                    };
+
+                    var token = new JwtSecurityToken(
+                        configuration["Tokens:Issuer"],
+                        configuration["Tokens:Audience"],
+                        claims,
+                        expires: DateTime.UtcNow.AddDays(1),
+                        signingCredentials: credentials
+                        );
+
+                    var generatedToken = new LoginModel
+                    {
+                        Token = new JwtSecurityTokenHandler().WriteToken(token),
+                        TokenExpiration = token.ValidTo,
+                        IsTeacher = user.IsTeacher
+                    };
+                    
+                    return generatedToken;
+                }
+            }
+            return new LoginModel();
         }
 
         public async Task ResetPasswordAsync(UserUpdateModel userUpdateModel)
