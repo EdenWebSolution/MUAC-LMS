@@ -4,9 +4,11 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ChartsModule } from "ng2-charts";
+import { NotificationsComponent } from "./notifications/notifications.component";
+import { NotificationService } from "./services/notification.service";
 
 @NgModule({
-  declarations: [],
+  declarations: [NotificationsComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -20,6 +22,7 @@ import { ChartsModule } from "ng2-charts";
     ReactiveFormsModule,
     NgbModule,
     ChartsModule
-  ]
+  ],
+  providers: [NotificationService]
 })
 export class SharedModule {}
