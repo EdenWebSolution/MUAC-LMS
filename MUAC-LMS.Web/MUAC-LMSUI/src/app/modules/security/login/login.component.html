@@ -7,16 +7,17 @@
       novalidate
     >
       <div class="row">
-        <div class="col-md-3 px-1">
+        <div class="col-md-12 px-1">
           <div class="form-group">
             <label>Username</label>
             <input
               type="text"
               class="form-control"
-              placeholder="Username"
+              placeholder="Enter username"
               formControlName="username"
             />
             <div
+              class="error"
               [hidden]="
                 loginForm.get('username').valid ||
                 (loginForm.get('username').pristine && !isLoginFormSubmitted)
@@ -35,16 +36,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-3 px-1">
+        <div class="col-md-12 px-1">
           <div class="form-group">
             <label>Password</label>
             <input
               type="password"
               class="form-control"
-              placeholder="Password"
+              placeholder="Enter password"
               formControlName="password"
             />
             <div
+              class="error"
               [hidden]="
                 loginForm.get('password').valid ||
                 (loginForm.get('password').pristine && !isLoginFormSubmitted)
@@ -61,10 +63,15 @@
             </div>
           </div>
         </div>
+        <div class="col-md-12 px-1">
+          <button
+            class="btn btn-lg btn-primary btn-block btn-signin"
+            type="submit"
+          >
+            Sign in
+          </button>
+        </div>
       </div>
-      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">
-        Sign in
-      </button>
     </form>
   </div>
 </div>

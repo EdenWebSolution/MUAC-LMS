@@ -10,6 +10,29 @@ html {
   background-repeat: no-repeat;
   background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
 }
+.main-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  transform: translate(-50%,-50%);
+  .card-body{
+    .form-group{
+      min-height: 90px;
+      label,
+      small{
+        margin-left: 15px;
+      }
+      small{
+        color: red;
+      }
+      .error{
+       text-align: right;
+       margin-right: 10px;
+      }
+    }
+  }
+}
 
 .card-container.card {
   max-width: 350px;
@@ -92,7 +115,6 @@ html {
 .form-signin button {
   width: 100%;
   display: block;
-  margin-bottom: 10px;
   z-index: 1;
   position: relative;
   -moz-box-sizing: border-box;
@@ -124,6 +146,7 @@ html {
   -moz-transition: all 0.218s;
   -webkit-transition: all 0.218s;
   transition: all 0.218s;
+  border-radius: 30px;
 }
 
 .btn.btn-signin:hover,
