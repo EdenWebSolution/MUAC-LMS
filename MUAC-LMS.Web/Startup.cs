@@ -28,7 +28,7 @@ namespace MUAC_LMS.Web
         {
             services.AddCors();
 
-            services.AddIdentity<StoreUser, IdentityRole>(cfg =>
+            services.AddIdentity<StoreUser, IdentityRole>(cfg => 
             {
                 // user the below optio to make the email unique
                 // cfg.User.RequireUniqueEmail = true 

@@ -12,10 +12,9 @@ namespace MUAC_LMS.Service.Models.Account
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public string UserName { get; set; }
+        public string UserName { get; set; } = Guid.NewGuid().ToString();
 
-        public string Password { get; set; }
+        public string Password { get; set; } = "P@$w0rd!";
 
         public bool IsTeacher { get; set; }
     }
