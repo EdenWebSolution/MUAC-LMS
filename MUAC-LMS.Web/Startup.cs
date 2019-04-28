@@ -12,6 +12,7 @@ using MUAC_LMS.Domain.User;
 using System.Text;
 using AutoMapper;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Collections.Generic;
 
 namespace MUAC_LMS.Web
 {
@@ -71,6 +72,20 @@ namespace MUAC_LMS.Web
                     TermsOfService = "None",
                     Contact = new Contact() { Name = "MUAC-LMS"/*, Email = "contact@talkingdotnet.com", Url = "www.talkingdotnet.com"*/ }
                 });
+
+                var security = new Dictionary<string, IEnumerable<string>>
+                {
+                    {"Bearer", new string[] { }},
+                };
+
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+                c.AddSecurityRequirement(security);
             });
 
             // In production, the Angular files will be served from this directory
