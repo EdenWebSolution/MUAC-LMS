@@ -13,6 +13,7 @@ namespace MUAC_LMS.Domain
         public StudentGrades StudentGrades { get; set; }
 
         public StoreUser StoreUser { get; set; }
+        public string StoreUserId { get; set; }
 
     }
 }

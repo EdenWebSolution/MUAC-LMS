@@ -26,15 +26,13 @@ namespace MUAC_LMS.Service.Security
         private readonly IConfiguration configuration;
         private readonly IMapper mapper;
         private readonly MUACContext muacContext;
-        private readonly IHttpContextAccessor httpContextAccessor;
 
         public SecurityService(
             SignInManager<StoreUser> signInManager,
             UserManager<StoreUser> userManager,
             IConfiguration configuration,
             IMapper mapper,
-            MUACContext muacContext,
-            IHttpContextAccessor httpContextAccessor
+            MUACContext muacContext
             )
         {
             this.signInManager = signInManager;
@@ -42,7 +40,6 @@ namespace MUAC_LMS.Service.Security
             this.configuration = configuration;
             this.mapper = mapper;
             this.muacContext = muacContext;
-            this.httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<UserModel> CreateNewUserAsync(UserModel userModel)
@@ -67,14 +64,14 @@ namespace MUAC_LMS.Service.Security
                 throw;
             }
         }
-        
+
         public async Task DeleteUserAsync(string id)
         {
             var user = await userManager.FindByIdAsync(id);
             user.IsDeleted = true;
             await userManager.UpdateAsync(user);
         }
-        
+
         public async Task<IEnumerable<UserModel>> GetAllUsersAsync()
         {
             var allUsers = userManager.Users.Where(w => !w.IsDeleted)
@@ -126,7 +123,7 @@ namespace MUAC_LMS.Service.Security
                         TokenExpiration = token.ValidTo,
                         IsTeacher = user.IsTeacher
                     };
-                    
+
                     return generatedToken;
                 }
             }
