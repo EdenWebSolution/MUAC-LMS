@@ -40,6 +40,11 @@ namespace MUAC_LMS.Service.Student
         {
             var query = mUACContext.StudentGrades.Include(i => i.StoreUser).Where(w => !w.IsDeleted && !w.StoreUser.IsDeleted);
 
+            if (!string.IsNullOrEmpty(paginationBase.SearchQuery))
+            {
+                query = query.Where(w => EF.Functions.Like(w.StoreUser.Name, "%" + paginationBase.SearchQuery + "%"));
+            }
+
             query = query.OrderBy(o => o.StoreUser.Name).Skip(paginationBase.Skip).Take(paginationBase.Take);
 
             var result = await query.AsNoTracking().ToListAsync();
@@ -54,6 +59,13 @@ namespace MUAC_LMS.Service.Student
             };
 
             return resultSet;
+        }
+
+        public async Task<StudentModel> GetStudentById(string studentId)
+        {
+            var entity = await mUACContext.StudentGrades.Include(i => i.StoreUser).FirstOrDefaultAsync(w => w.StoreUser.Id == studentId && !w.StoreUser.IsDeleted);
+            var model = mapper.Map<StudentModel>(entity);
+            return model;
         }
     }
 }

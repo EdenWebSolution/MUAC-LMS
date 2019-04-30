@@ -40,10 +40,11 @@ namespace MUAC_LMS.Web.Controllers
         }
 
         [HttpGet]
-        [Route("GetStudentById/{studentId:guid}")]
-        public IActionResult GetStudentById(Guid studentId)
+        [Route("GetStudentById/{studentId}")]
+        public async Task<IActionResult> GetStudentById(string studentId)
         {
-            return Ok();
+            var result = await studentService.GetStudentById(studentId);
+            return Ok(result);
         }
     }
 }

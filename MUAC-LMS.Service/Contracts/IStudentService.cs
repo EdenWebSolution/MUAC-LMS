@@ -11,5 +11,6 @@ namespace MUAC_LMS.Service.Contracts
     {
         Task CreateStudentAsync(StudentCreateModel studentCreateModel);
         Task<PaginationModel<StudentModel>> GetAllStudents(PaginationBase paginationBase);
+        Task<StudentModel> GetStudentById(string studentId);
     }
 }
