@@ -43,8 +43,16 @@ namespace MUAC_LMS.Web.Controllers
         [Route("GetStudentById/{studentId}")]
         public async Task<IActionResult> GetStudentById(string studentId)
         {
-            var result = await studentService.GetStudentById(studentId);
+            var result = await studentService.GetStudentByIdAsync(studentId);
             return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("UpdateStudent")]
+        public async Task<IActionResult> UpdateStudent([FromBody] StudentUpdateModel studentUpdateModel)
+        {
+            await studentService.UpdateStudentAsync(studentUpdateModel);
+            return Ok();
         }
     }
 }

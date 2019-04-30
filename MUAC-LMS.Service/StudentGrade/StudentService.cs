@@ -61,11 +61,20 @@ namespace MUAC_LMS.Service.Student
             return resultSet;
         }
 
-        public async Task<StudentModel> GetStudentById(string studentId)
+        public async Task<StudentModel> GetStudentByIdAsync(string studentId)
         {
             var entity = await mUACContext.StudentGrades.Include(i => i.StoreUser).FirstOrDefaultAsync(w => w.StoreUser.Id == studentId && !w.StoreUser.IsDeleted);
             var model = mapper.Map<StudentModel>(entity);
             return model;
+        }
+
+        public async Task UpdateStudentAsync(StudentUpdateModel studentUpdateModel)
+        {
+            var entity = await mUACContext.StudentGrades.Include(i => i.StoreUser).FirstOrDefaultAsync(w => w.StoreUser.Id == studentUpdateModel.StoreUserId && !w.StoreUser.IsDeleted);
+            entity.StoreUser.Name = studentUpdateModel.Name;
+            entity.StudentGrades = studentUpdateModel.StudentGrades;
+
+            await mUACContext.SaveChangesAsync();
         }
     }
 }
