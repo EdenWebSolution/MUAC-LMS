@@ -3,6 +3,7 @@ using MUAC_LMS.Data;
 using MUAC_LMS.Service.Contracts;
 using MUAC_LMS.Service.Security;
 using MUAC_LMS.Service.Student;
+using MUAC_LMS.Service.Teacher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace MUAC_LMS.Web
             services.AddScoped<MUACContext, MUACContext>();
             services.AddScoped<ISecurityService, SecurityService>();
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<ITeacherService, TeacherService>();
         }
     }
 }

@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   message: "development",
-  baseEndPoint: "http://localhost:6362"
+  baseEndPoint: "http://localhost:59078"
   //  baseEndPoint: 'http://gemsto.azurewebsites.net'
   // baseEndPoint: 'http://gemstotest.iffagems.com'
 };

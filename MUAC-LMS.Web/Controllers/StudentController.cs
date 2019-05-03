@@ -25,34 +25,62 @@ namespace MUAC_LMS.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateStudent([FromBody] StudentCreateModel studentGradeCreateModel)
+        public async Task<IActionResult> CreateStudent([FromBody] StudentCreateModel studentCreateModel)
         {
-            await studentService.CreateStudentAsync(studentGradeCreateModel);
-            return Created("", null);
+            try
+            {
+                await studentService.CreateStudentAsync(studentCreateModel);
+                return Created("", null);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Something went wrong while creating a new teacher, please try again" });
+            }
         }
 
         [HttpGet]
         [Route("getAll")]
         public async Task<IActionResult> GetAllStudent([FromQuery]PaginationBase paginationBase)
         {
-            var result = await studentService.GetAllStudents(paginationBase);
-            return Ok(result);
+            try
+            {
+                var result = await studentService.GetAllStudents(paginationBase);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Something went wrong while creating a new teacher, please try again" });
+            }
         }
 
         [HttpGet]
         [Route("GetStudentById/{studentId}")]
         public async Task<IActionResult> GetStudentById(string studentId)
         {
-            var result = await studentService.GetStudentByIdAsync(studentId);
-            return Ok(result);
+            try
+            {
+                var result = await studentService.GetStudentByIdAsync(studentId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Something went wrong while creating a new teacher, please try again" });
+            }
         }
 
         [HttpPut]
         [Route("UpdateStudent")]
         public async Task<IActionResult> UpdateStudent([FromBody] StudentUpdateModel studentUpdateModel)
         {
-            await studentService.UpdateStudentAsync(studentUpdateModel);
-            return Ok();
+            try
+            {
+                await studentService.UpdateStudentAsync(studentUpdateModel);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Something went wrong while creating a new teacher, please try again" });
+            }
         }
     }
 }
