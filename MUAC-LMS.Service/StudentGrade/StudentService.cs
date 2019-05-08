@@ -45,11 +45,12 @@ namespace MUAC_LMS.Service.Student
                 query = query.Where(w => EF.Functions.Like(w.StoreUser.Name, "%" + paginationBase.SearchQuery + "%"));
             }
 
+            var totalRecords = await query.CountAsync();
+
             query = query.OrderBy(o => o.StoreUser.Name).Skip(paginationBase.Skip).Take(paginationBase.Take);
 
             var result = await query.AsNoTracking().ToListAsync();
-            var totalRecords = await query.CountAsync();
-
+            
             var model = mapper.Map<IEnumerable<StudentModel>>(result);
 
             var resultSet = new PaginationModel<StudentModel>

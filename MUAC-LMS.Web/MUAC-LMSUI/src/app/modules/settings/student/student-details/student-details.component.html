@@ -11,7 +11,7 @@
             <table class="table">
               <thead class=" text-primary">
                 <th>
-                  Student Id
+                  Student No
                 </th>
                 <th>
                   Student Name
@@ -21,81 +21,29 @@
                 </th>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let student of students; let i = index">
                   <td>
-                    001
+                    {{ (currentPage - 1) * 10 + i + 1 }}
                   </td>
                   <td>
-                    Amjad Hussain
+                    {{ student.name }}
                   </td>
                   <td>
-                    Grade 1
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    002
-                  </td>
-                  <td>
-                    Thanzeel Jalaldeen
-                  </td>
-                  <td>
-                    Grade 2
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    003
-                  </td>
-                  <td>
-                    Akmal Noufer
-                  </td>
-                  <td>
-                    Grade 3
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    004
-                  </td>
-                  <td>
-                    Usama Jumaloon
-                  </td>
-                  <td>
-                    Grade 4
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    005
-                  </td>
-                  <td>
-                    Fazlan Fairooz
-                  </td>
-                  <td>
-                    Grade 5
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    006
-                  </td>
-                  <td>
-                    Irfan Faiz
-                  </td>
-                  <td>
-                    Grade 6
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    007
-                  </td>
-                  <td>
-                    Umair Anhar
-                  </td>
-                  <td>
-                    Grade 7
+                    {{
+                      student.studentGrades == 1
+                        ? "Grade 1"
+                        : student.studentGrades == 2
+                        ? "Grade 2"
+                        : student.studentGrades == 3
+                        ? "Grade 3"
+                        : student.studentGrades == 4
+                        ? "Grade 4"
+                        : student.studentGrades == 5
+                        ? "Grade 5"
+                        : student.studentGrades == 6
+                        ? "Grade 6"
+                        : "Grade 7"
+                    }}
                   </td>
                 </tr>
               </tbody>
@@ -104,5 +52,11 @@
         </div>
       </div>
     </div>
+
+    <pagination
+      [totalItems]="totalItems"
+      [(ngModel)]="currentPage"
+      (pageChanged)="pageChanged($event)"
+    ></pagination>
   </div>
 </div>

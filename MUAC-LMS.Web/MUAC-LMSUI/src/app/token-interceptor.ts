@@ -12,7 +12,7 @@ import {
 export class TokenInterceptor implements HttpInterceptor {
   constructor() {}
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const authToken = sessionStorage.getItem("GemSto-TokenId");
+    const authToken = localStorage.getItem("TokenId");
     const headers = new HttpHeaders({
       Authorization: "Bearer " + authToken
     });

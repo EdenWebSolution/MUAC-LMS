@@ -7,21 +7,36 @@
           <h5 class="title">Add New Teacher Details</h5>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="teacherForm">
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label for="email">Teacher Name</label>
                   <input
-                    id="email"
-                    type="email"
+                    id="name"
+                    type="name"
                     class="form-control"
                     placeholder="Teacher Name"
+                    formControlName="name"
                   />
+                </div>
+                <div
+                  [hidden]="
+                    teacherForm.get('name').valid ||
+                    (teacherForm.get('name').pristine && !teacherFormSubmitted)
+                  "
+                >
+                  <small
+                    class="bbk-field__message"
+                    *ngIf="teacherForm.get('name').errors"
+                  >
+                    <i class="fa fa-info-circle u-color-danger"></i>Teacher name
+                    is required
+                  </small>
                 </div>
               </div>
             </div>
-            <button>
+            <button (click)="saveTeacher()">
               Save
             </button>
           </form>

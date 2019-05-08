@@ -6,6 +6,7 @@ using MUAC_LMS.Common;
 using MUAC_LMS.Data;
 using MUAC_LMS.Domain.User;
 using MUAC_LMS.Service.Contracts;
+using MUAC_LMS.Service.Models.Account;
 using MUAC_LMS.Service.Models.Teacher;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace MUAC_LMS.Service.Teacher
 
         public async Task CreateTeacherAsync(TeacherCreateModel teacherCreateModel)
         {
-            var userModel = await securityService.CreateNewUserAsync(new Models.Account.UserModel { UserName = teacherCreateModel.Name, Name = teacherCreateModel.Name, IsTeacher = true });
+            var userModel = await securityService.CreateNewUserAsync(new UserModel { Name = teacherCreateModel.Name, IsTeacher = true });
             await mUACContext.SaveChangesAsync();
         }
 
@@ -45,10 +46,11 @@ namespace MUAC_LMS.Service.Teacher
                 query = query.Where(w => EF.Functions.Like(w.Name, "%" + paginationBase.SearchQuery + "%"));
             }
 
+            var totalRecords = await query.CountAsync();
+
             query = query.OrderBy(o => o.Name).Skip(paginationBase.Skip).Take(paginationBase.Take);
 
             var result = await query.AsNoTracking().ToListAsync();
-            var totalRecords = await query.CountAsync();
 
             var model = mapper.Map<IEnumerable<TeacherModel>>(result);
 

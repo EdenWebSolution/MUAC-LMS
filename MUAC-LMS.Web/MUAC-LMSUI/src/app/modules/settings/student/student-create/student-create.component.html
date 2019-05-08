@@ -7,17 +7,32 @@
           <h5 class="title">Add New Student Details</h5>
         </div>
         <div class="card-body">
-          <form>
+          <form [formGroup]="studentForm">
             <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label for="email">Student Name</label>
                   <input
-                    id="email"
-                    type="email"
+                    id="name"
+                    type="name"
                     class="form-control"
                     placeholder="Student Name"
+                    formControlName="name"
                   />
+                </div>
+                <div
+                  [hidden]="
+                    studentForm.get('name').valid ||
+                    (studentForm.get('name').pristine && !studentFormSubmitted)
+                  "
+                >
+                  <small
+                    class="bbk-field__message"
+                    *ngIf="studentForm.get('name').errors"
+                  >
+                    <i class="fa fa-info-circle u-color-danger"></i>Student name
+                    is required
+                  </small>
                 </div>
               </div>
             </div>
@@ -25,19 +40,17 @@
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label>Grade</label>
-                  <select class="form-control">
-                    <option value="volvo">Grade 1</option>
-                    <option value="saab">Grade 2</option>
-                    <option value="mercedes">Grade 3</option>
-                    <option value="audi">Grade 4</option>
-                    <option value="saab1">Grade 5</option>
-                    <option value="mercedes1">Grade 6</option>
-                    <option value="audi1">Grade 7</option>
+                  <select class="form-control" formControlName="studentGrades">
+                    <option
+                      *ngFor="let grade of studentGrades"
+                      [value]="grade.value"
+                      >{{ grade.text }}</option
+                    >
                   </select>
                 </div>
               </div>
             </div>
-            <button>
+            <button (click)="saveStudent()">
               Save
             </button>
           </form>

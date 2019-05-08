@@ -11,67 +11,19 @@
             <table class="table">
               <thead class=" text-primary">
                 <th>
-                  Teacher Id
+                  Teacher No
                 </th>
                 <th>
                   Teacher Name
                 </th>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let teacher of teachers; let i = index">
                   <td>
-                    001
+                    {{ (currentPage - 1) * 10 + i + 1 }}
                   </td>
                   <td>
-                    Amjad Hussain
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    002
-                  </td>
-                  <td>
-                    Thanzeel Jalaldeen
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    003
-                  </td>
-                  <td>
-                    Akmal Noufer
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    004
-                  </td>
-                  <td>
-                    Grade 4
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    005
-                  </td>
-                  <td>
-                    Fazlan Fairooz
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    006
-                  </td>
-                  <td>
-                    Irfan Faiz
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    007
-                  </td>
-                  <td>
-                    Umair Anhar
+                    {{ teacher.name }}
                   </td>
                 </tr>
               </tbody>
@@ -80,5 +32,10 @@
         </div>
       </div>
     </div>
+    <pagination
+      [totalItems]="totalItems"
+      [(ngModel)]="currentPage"
+      (pageChanged)="pageChanged($event)"
+    ></pagination>
   </div>
 </div>
