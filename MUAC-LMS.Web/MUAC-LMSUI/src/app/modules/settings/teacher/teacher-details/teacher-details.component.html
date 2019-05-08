@@ -6,6 +6,11 @@
         <div class="card-header">
           <h4 class="card-title">Teacher Details View</h4>
         </div>
+        <div>
+          <button (click)="addNewTeacher()">
+            Create New Teacher
+          </button>
+        </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table">
@@ -16,6 +21,9 @@
                 <th>
                   Teacher Name
                 </th>
+                <th>
+                  Action
+                </th>
               </thead>
               <tbody>
                 <tr *ngFor="let teacher of teachers; let i = index">
@@ -24,6 +32,9 @@
                   </td>
                   <td>
                     {{ teacher.name }}
+                  </td>
+                  <td>
+                    <button>Delete</button>
                   </td>
                 </tr>
               </tbody>
@@ -38,4 +49,11 @@
       (pageChanged)="pageChanged($event)"
     ></pagination>
   </div>
+</div>
+
+<div *ngIf="isShowCreate">
+  <app-teacher-create
+    (closeNewTeacherClicked)="closeNewTeacherEventClicked($event)"
+    (addNewTeacherSaved)="addNewTeacherEventSaved($event)"
+  ></app-teacher-create>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { StudentModel } from "../../models/studentModel";
 import { Router } from "@angular/router";
@@ -15,6 +15,9 @@ export class StudentCreateComponent implements OnInit {
   studentObj = new StudentModel();
   studentGrades: { value: number; text: string }[];
   studentFormSubmitted: boolean = false;
+
+  @Output() closeNewStudentClicked = new EventEmitter<Event>();
+  @Output() addNewStudentSaved = new EventEmitter<Event>();
 
   constructor(
     private fb: FormBuilder,
@@ -44,7 +47,7 @@ export class StudentCreateComponent implements OnInit {
     });
   }
 
-  saveStudent(): any {
+  saveStudent(event: Event): any {
     this.studentFormSubmitted = true;
     if (this.studentForm.invalid) return;
 
@@ -57,6 +60,7 @@ export class StudentCreateComponent implements OnInit {
           studentGrades: 1
         });
         this.studentFormSubmitted = false;
+        this.addNewStudentSaved.emit(event);
       },
       error => {
         this.notificationService.errorMessage(
@@ -66,5 +70,9 @@ export class StudentCreateComponent implements OnInit {
         );
       }
     );
+  }
+
+  closeNewStudent(event: Event): void {
+    this.closeNewStudentClicked.emit(event);
   }
 }

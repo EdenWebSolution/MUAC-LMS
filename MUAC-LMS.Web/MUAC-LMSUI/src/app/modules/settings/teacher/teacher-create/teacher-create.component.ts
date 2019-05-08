@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormGroup, Validators } from "@angular/forms";
 import { TeacherModel } from "../../models/teacherModel";
 import { FormBuilder } from "@angular/forms";
@@ -15,6 +15,9 @@ export class TeacherCreateComponent implements OnInit {
   teacherForm: FormGroup;
   teacherObj = new TeacherModel();
   teacherFormSubmitted: boolean = false;
+
+  @Output() closeNewTeacherClicked = new EventEmitter<Event>();
+  @Output() addNewTeacherSaved = new EventEmitter<Event>();
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +36,7 @@ export class TeacherCreateComponent implements OnInit {
     });
   }
 
-  saveTeacher(): any {
+  saveTeacher(event: Event): any {
     this.teacherFormSubmitted = true;
     if (this.teacherForm.invalid) return;
 
@@ -45,6 +48,7 @@ export class TeacherCreateComponent implements OnInit {
           name: ""
         });
         this.teacherFormSubmitted = false;
+        this.addNewTeacherSaved.emit(event);
       },
       error => {
         this.notificationService.errorMessage(
@@ -54,5 +58,9 @@ export class TeacherCreateComponent implements OnInit {
         );
       }
     );
+  }
+
+  closeNewTeacher(event: Event): void {
+    this.closeNewTeacherClicked.emit(event);
   }
 }

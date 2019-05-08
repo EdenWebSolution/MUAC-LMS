@@ -2,11 +2,14 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 import { LayoutComponent } from "./modules/layout/layout/layout.component";
 import { LoginComponent } from "./modules/security/login/login.component";
+import { AuthGuard } from "./modules/security/auth.guard";
 
 export const routes: Routes = [
   {
     path: "",
-    component: LoginComponent
+    redirectTo: "muac/dashboard",
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "login",

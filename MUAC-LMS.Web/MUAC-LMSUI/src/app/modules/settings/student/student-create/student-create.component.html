@@ -9,6 +9,11 @@
         <div class="card-body">
           <form [formGroup]="studentForm">
             <div class="row">
+              <button (click)="closeNewStudent(event)">
+                Close
+              </button>
+            </div>
+            <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label for="email">Student Name</label>
@@ -50,7 +55,7 @@
                 </div>
               </div>
             </div>
-            <button (click)="saveStudent()">
+            <button (click)="saveStudent(event)">
               Save
             </button>
           </form>

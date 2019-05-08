@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { PaginationBase } from "../../../../modules/shared/models/paginationBase";
 import { StudentService } from "./../../services/student.service";
 import { FormBuilder } from "@angular/forms";
@@ -15,6 +15,9 @@ export class StudentDetailsComponent implements OnInit {
 
   totalItems: number;
   currentPage = 1;
+
+  isShowCreate = false;
+  @Output() addNewStudentClicked = new EventEmitter<Event>();
 
   constructor(
     private studentService: StudentService,
@@ -40,6 +43,19 @@ export class StudentDetailsComponent implements OnInit {
   pageChanged(event: any): void {
     this.pagination.skip = (event.page - 1) * this.pagination.take;
     this.currentPage = event.page;
+    this.getStudentDetails();
+  }
+
+  addNewStudent() {
+    this.isShowCreate = true;
+  }
+
+  closeNewStudentEventClicked(event: Event) {
+    this.isShowCreate = !this.isShowCreate;
+  }
+
+  addNewStudentEventSaved(event: Event) {
+    this.currentPage = 1;
     this.getStudentDetails();
   }
 }

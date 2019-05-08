@@ -6,6 +6,11 @@
         <div class="card-header">
           <h4 class="card-title">Student Details View</h4>
         </div>
+        <div>
+          <button (click)="addNewStudent()">
+            Create New Student
+          </button>
+        </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table">
@@ -18,6 +23,9 @@
                 </th>
                 <th>
                   Grade
+                </th>
+                <th>
+                  Action
                 </th>
               </thead>
               <tbody>
@@ -45,6 +53,9 @@
                         : "Grade 7"
                     }}
                   </td>
+                  <td>
+                    <button>Delete</button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -59,4 +70,11 @@
       (pageChanged)="pageChanged($event)"
     ></pagination>
   </div>
+</div>
+
+<div *ngIf="isShowCreate">
+  <app-student-create
+    (closeNewStudentClicked)="closeNewStudentEventClicked($event)"
+    (addNewStudentSaved)="addNewStudentEventSaved($event)"
+  ></app-student-create>
 </div>

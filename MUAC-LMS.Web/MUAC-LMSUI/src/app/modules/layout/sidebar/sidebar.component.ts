@@ -44,14 +44,14 @@ export const ROUTES: RouteInfo[] = [
     isSubPath: false
   },
   {
-    path: "/muac/settings/teacher/view",
+    path: "/muac/settings/teacher/details",
     title: "مدرس (teacher)",
     icon: "ui-1_settings-gear-63",
     class: "",
     isSubPath: true
   },
   {
-    path: "/muac/settings/student/view",
+    path: "/muac/settings/student/details",
     title: "طالب علم (student)",
     icon: "ui-1_settings-gear-63",
     class: "",
