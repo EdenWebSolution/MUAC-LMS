@@ -33,7 +33,7 @@ namespace MUAC_LMS.Service.Teacher
 
         public async Task CreateTeacherAsync(TeacherCreateModel teacherCreateModel)
         {
-            var userModel = await securityService.CreateNewUserAsync(new UserModel { Name = teacherCreateModel.Name, IsTeacher = true });
+            await securityService.CreateNewUserAsync(new UserModel { Name = teacherCreateModel.Name, IsTeacher = true });
             await mUACContext.SaveChangesAsync();
         }
 

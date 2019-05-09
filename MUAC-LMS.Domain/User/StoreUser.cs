@@ -13,6 +13,10 @@ namespace MUAC_LMS.Domain.User
 
         public bool IsTeacher { get; set; }
 
+        public string CreatedById { get; set; }
+        public string EditedById { get; set; }
+        public DateTimeOffset? EditedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.UtcNow;
         public bool IsDeleted { get; set; }
     }
 }
