@@ -55,10 +55,10 @@
                 </div>
               </div>
             </div>
-            <button (click)="saveStudent(event)">
+            <button *ngIf="studentId == ''" (click)="saveStudent(event)">
               Save
             </button>
-            <button (click)="updateStudent(event)">
+            <button *ngIf="studentId != ''" (click)="updateStudent(event)">
               Update
             </button>
           </form>

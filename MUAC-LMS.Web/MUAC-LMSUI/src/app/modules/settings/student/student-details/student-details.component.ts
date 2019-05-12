@@ -3,6 +3,7 @@ import { PaginationBase } from "../../../../modules/shared/models/paginationBase
 import { StudentService } from "./../../services/student.service";
 import { FormBuilder } from "@angular/forms";
 import { StudentDetails } from "./../../models/studentDetails";
+import swal from "sweetalert";
 
 @Component({
   selector: "app-student-details",
@@ -63,5 +64,31 @@ export class StudentDetailsComponent implements OnInit {
   editStudent(studentId: string) {
     this.isShowCreate = true;
     this.editStudentId = studentId;
+  }
+
+  deleteStudent(studentId: string) {
+    swal({
+      title: "Are you sure you want to Delete?",
+      icon: "warning",
+      buttons: ["No", "Yes"],
+      dangerMode: true
+    }).then(willDelete => {
+      if (willDelete) {
+        // this.studentService.deleteStudent(studentId).subscribe(
+        //   res => {
+        //     this.currentPage = 1;
+        //  this.getStudentDetails();
+
+        //   },
+        //   error => {
+        //     console.log(error);
+        //   }
+        // );
+        this.isShowCreate = !this.isShowCreate;
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success"
+        });
+      }
+    });
   }
 }

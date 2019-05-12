@@ -34,8 +34,8 @@
                     {{ teacher.name }}
                   </td>
                   <td>
-                    <button>Delete</button>
-                    <button>Edit</button>
+                    <button (click)="deleteTeacher(teacher.id)">Delete</button>
+                    <button (click)="editTeacher(teacher.id)">Edit</button>
                   </td>
                 </tr>
               </tbody>
@@ -56,5 +56,6 @@
   <app-teacher-create
     (closeNewTeacherClicked)="closeNewTeacherEventClicked($event)"
     (addNewTeacherSaved)="addNewTeacherEventSaved($event)"
+    [teacherId]="editTeacherId"
   ></app-teacher-create>
 </div>

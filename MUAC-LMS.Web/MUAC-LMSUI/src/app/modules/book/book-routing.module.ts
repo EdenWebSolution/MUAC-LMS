@@ -1,20 +1,20 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { BookCreateComponent } from './book-create/book-create.component';
-import { BookDetailsComponent } from './book-details/book-details.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { BookCreateComponent } from "./book-create/book-create.component";
+import { BookDetailsComponent } from "./book-details/book-details.component";
 
 const routes: Routes = [
   {
-    path: 'create',
+    path: "create",
     component: BookCreateComponent
   },
   {
-    path: 'details',
+    path: "details",
     component: BookDetailsComponent
   },
   {
-    path: '',
-    redirectTo: '/muac/book/details'
+    path: "",
+    redirectTo: "/muac/book/details"
   }
 ];
 

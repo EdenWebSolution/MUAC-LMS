@@ -12,6 +12,6 @@ namespace MUAC_LMS.Service.Contracts
         Task CreateTeacherAsync(TeacherCreateModel teacherCreateModel);
         Task<PaginationModel<TeacherModel>> GetAllTeachers(PaginationBase paginationBase);
         TeacherModel GetTeacherById(string teacherId);
-        void UpdateTeacherAsync(TeacherUpdateModel teacherUpdateModel);
+        Task UpdateTeacherAsync(TeacherUpdateModel teacherUpdateModel);
     }
 }

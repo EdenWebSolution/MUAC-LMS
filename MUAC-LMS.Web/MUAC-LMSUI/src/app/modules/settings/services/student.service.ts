@@ -50,4 +50,13 @@ export class StudentService extends BaseService {
       )
       .pipe(catchError(this.handleError));
   }
+
+  deleteStudent(studentId: string) {
+    return this.http
+      .delete(
+        `${this.baseEndPoint}/api/Student/DeleteStudent/${studentId}`,
+        this.httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
 }

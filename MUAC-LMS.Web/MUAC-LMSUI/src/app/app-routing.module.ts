@@ -21,15 +21,18 @@ export const routes: Routes = [
     children: [
       {
         path: "dashboard",
-        loadChildren: "./modules/dashboard/dashboard.module#DashboardModule"
+        loadChildren: "./modules/dashboard/dashboard.module#DashboardModule",
+        canActivate: [AuthGuard]
       },
       {
         path: "book",
-        loadChildren: "./modules/book/book.module#BookModule"
+        loadChildren: "./modules/book/book.module#BookModule",
+        canActivate: [AuthGuard]
       },
       {
         path: "settings",
-        loadChildren: "./modules/settings/settings.module#SettingsModule"
+        loadChildren: "./modules/settings/settings.module#SettingsModule",
+        canActivate: [AuthGuard]
       }
     ]
   }

@@ -31,4 +31,23 @@ export class TeacherService extends BaseService {
       )
       .pipe(catchError(this.handleError));
   }
+
+  getTeacherById(teacherId: string) {
+    return this.http
+      .get<TeacherModel>(
+        `${this.baseEndPoint}/api/Teacher/GetTeacherById/${teacherId}`,
+        this.httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  updateTeacher(teacherModel: TeacherModel) {
+    return this.http
+      .put(
+        `${this.baseEndPoint}/api/Teacher/UpdateTeacher`,
+        teacherModel,
+        this.httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
 }

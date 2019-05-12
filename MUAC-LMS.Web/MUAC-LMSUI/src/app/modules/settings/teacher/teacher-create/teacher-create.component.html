@@ -41,8 +41,11 @@
                 </div>
               </div>
             </div>
-            <button (click)="saveTeacher(event)">
+            <button *ngIf="teacherId == ''" (click)="saveTeacher(event)">
               Save
+            </button>
+            <button *ngIf="teacherId != ''" (click)="updateTeacher(event)">
+              Update
             </button>
           </form>
         </div>

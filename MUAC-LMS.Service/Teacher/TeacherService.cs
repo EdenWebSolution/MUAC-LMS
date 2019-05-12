@@ -70,14 +70,13 @@ namespace MUAC_LMS.Service.Teacher
             return model;
         }
 
-        public void UpdateTeacherAsync(TeacherUpdateModel teacherUpdateModel)
+        public async Task UpdateTeacherAsync(TeacherUpdateModel teacherUpdateModel)
         {
             var userStore = new UserStore<StoreUser>(mUACContext);
 
             var teacher = userManager.Users.FirstOrDefault(w => w.Id == teacherUpdateModel.Id && !w.IsDeleted);
             teacher.Name = teacherUpdateModel.Name;
-            teacher.UserName = teacherUpdateModel.Name;
-            userStore.UpdateAsync(teacher);
+            await userStore.UpdateAsync(teacher);
         }
     }
 }

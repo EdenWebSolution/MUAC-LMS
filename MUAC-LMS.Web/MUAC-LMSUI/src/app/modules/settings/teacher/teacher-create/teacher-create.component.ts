@@ -1,4 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges
+} from "@angular/core";
 import { FormGroup, Validators } from "@angular/forms";
 import { TeacherModel } from "../../models/teacherModel";
 import { FormBuilder } from "@angular/forms";
@@ -11,13 +18,14 @@ import { TeacherService } from "../../services/teacher.service";
   templateUrl: "./teacher-create.component.html",
   styleUrls: ["./teacher-create.component.scss"]
 })
-export class TeacherCreateComponent implements OnInit {
+export class TeacherCreateComponent implements OnInit, OnChanges {
   teacherForm: FormGroup;
   teacherObj = new TeacherModel();
   teacherFormSubmitted: boolean = false;
 
   @Output() closeNewTeacherClicked = new EventEmitter<Event>();
   @Output() addNewTeacherSaved = new EventEmitter<Event>();
+  @Input() teacherId: string;
 
   constructor(
     private fb: FormBuilder,
@@ -28,6 +36,11 @@ export class TeacherCreateComponent implements OnInit {
 
   ngOnInit() {
     this.createTeacherForm();
+  }
+
+  ngOnChanges() {
+    if (this.teacherId != "") this.getTeacherById(this.teacherId);
+    else this.createTeacherForm();
   }
 
   createTeacherForm(): any {
@@ -58,6 +71,47 @@ export class TeacherCreateComponent implements OnInit {
         );
       }
     );
+  }
+
+  updateTeacher(): any {
+    this.teacherObj = Object.assign({}, this.teacherForm.value);
+    this.teacherObj.id = this.teacherId;
+
+    this.teacherService.updateTeacher(this.teacherObj).subscribe(
+      res => {
+        this.addNewTeacherSaved.emit();
+        this.closeNewTeacherClicked.emit(event);
+      },
+      error => {
+        this.notificationService.errorMessage(
+          error.message !== undefined && error.message !== null
+            ? error.message
+            : "Something went wrong, refresh page again"
+        );
+      }
+    );
+  }
+
+  getTeacherById(teacherId: string): any {
+    this.teacherService.getTeacherById(teacherId).subscribe(
+      res => {
+        console.log(res);
+        this.patchTeacherForm(res);
+      },
+      error => {
+        this.notificationService.errorMessage(
+          error.message !== undefined && error.message !== null
+            ? error.message
+            : "Something went wrong, refresh page again"
+        );
+      }
+    );
+  }
+
+  patchTeacherForm(teacherModel: TeacherModel): any {
+    this.teacherForm.patchValue({
+      name: teacherModel.name
+    });
   }
 
   closeNewTeacher(event: Event): void {

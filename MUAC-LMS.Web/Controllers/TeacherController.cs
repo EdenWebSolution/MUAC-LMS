@@ -71,11 +71,11 @@ namespace MUAC_LMS.Web.Controllers
 
         [HttpPut]
         [Route("UpdateTeacher")]
-        public IActionResult UpdateTeacher([FromBody] TeacherUpdateModel teacherUpdateModel)
+        public async Task<IActionResult> UpdateTeacher([FromBody] TeacherUpdateModel teacherUpdateModel)
         {
             try
             {
-                teacherService.UpdateTeacherAsync(teacherUpdateModel);
+                await teacherService.UpdateTeacherAsync(teacherUpdateModel);
                 return Ok();
             }
             catch (Exception ex)

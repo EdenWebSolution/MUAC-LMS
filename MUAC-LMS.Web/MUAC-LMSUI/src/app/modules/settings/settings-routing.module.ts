@@ -4,28 +4,23 @@ import { MainCategoryViewComponent } from "./category/main-category/main-categor
 import { SubCategoryViewComponent } from "./category/sub-category/sub-category-view/sub-category-view.component";
 import { StudentDetailsComponent } from "./student/student-details/student-details.component";
 import { TeacherDetailsComponent } from "./teacher/teacher-details/teacher-details.component";
-import { AuthGuard } from "../security/auth.guard";
 
 const routes: Routes = [
   {
     path: "teacher/details",
-    component: TeacherDetailsComponent,
-    canActivate: [AuthGuard]
+    component: TeacherDetailsComponent
   },
   {
     path: "student/details",
-    component: StudentDetailsComponent,
-    canActivate: [AuthGuard]
+    component: StudentDetailsComponent
   },
   {
     path: "maincategory/view",
-    component: MainCategoryViewComponent,
-    canActivate: [AuthGuard]
+    component: MainCategoryViewComponent
   },
   {
     path: "subcategory/view",
-    component: SubCategoryViewComponent,
-    canActivate: [AuthGuard]
+    component: SubCategoryViewComponent
   }
 ];
 
