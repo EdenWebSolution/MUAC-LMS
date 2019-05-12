@@ -1,4 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges
+} from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { StudentModel } from "../../models/studentModel";
 import { Router } from "@angular/router";
@@ -10,7 +17,7 @@ import { StudentService } from "./../../services/student.service";
   templateUrl: "./student-create.component.html",
   styleUrls: ["./student-create.component.scss"]
 })
-export class StudentCreateComponent implements OnInit {
+export class StudentCreateComponent implements OnInit, OnChanges {
   studentForm: FormGroup;
   studentObj = new StudentModel();
   studentGrades: { value: number; text: string }[];
@@ -18,6 +25,7 @@ export class StudentCreateComponent implements OnInit {
 
   @Output() closeNewStudentClicked = new EventEmitter<Event>();
   @Output() addNewStudentSaved = new EventEmitter<Event>();
+  @Input() studentId: string;
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +48,11 @@ export class StudentCreateComponent implements OnInit {
     this.createStudentForm();
   }
 
+  ngOnChanges() {
+    if (this.studentId != "") this.getStudentById(this.studentId);
+    else this.createStudentForm();
+  }
+
   createStudentForm(): any {
     this.studentForm = this.fb.group({
       name: ["", [Validators.required]],
@@ -47,7 +60,7 @@ export class StudentCreateComponent implements OnInit {
     });
   }
 
-  saveStudent(event: Event): any {
+  saveStudent(): any {
     this.studentFormSubmitted = true;
     if (this.studentForm.invalid) return;
 
@@ -60,7 +73,7 @@ export class StudentCreateComponent implements OnInit {
           studentGrades: 1
         });
         this.studentFormSubmitted = false;
-        this.addNewStudentSaved.emit(event);
+        this.addNewStudentSaved.emit();
       },
       error => {
         this.notificationService.errorMessage(
@@ -70,6 +83,48 @@ export class StudentCreateComponent implements OnInit {
         );
       }
     );
+  }
+
+  updateStudent(): any {
+    this.studentObj = Object.assign({}, this.studentForm.value);
+    this.studentObj.storeUserId = this.studentId;
+
+    this.studentService.updateStudent(this.studentObj).subscribe(
+      res => {
+        this.addNewStudentSaved.emit();
+        this.closeNewStudentClicked.emit(event);
+      },
+      error => {
+        this.notificationService.errorMessage(
+          error.message !== undefined && error.message !== null
+            ? error.message
+            : "Something went wrong, refresh page again"
+        );
+      }
+    );
+  }
+
+  getStudentById(studentId: string): any {
+    this.studentService.getStudentById(studentId).subscribe(
+      res => {
+        console.log(res);
+        this.patchStudentForm(res);
+      },
+      error => {
+        this.notificationService.errorMessage(
+          error.message !== undefined && error.message !== null
+            ? error.message
+            : "Something went wrong, refresh page again"
+        );
+      }
+    );
+  }
+
+  patchStudentForm(studentModel: StudentModel): any {
+    this.studentForm.patchValue({
+      name: studentModel.name,
+      studentGrades: studentModel.studentGrades
+    });
   }
 
   closeNewStudent(event: Event): void {

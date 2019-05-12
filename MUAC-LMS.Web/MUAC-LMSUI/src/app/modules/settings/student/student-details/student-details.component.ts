@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, EventEmitter, Input } from "@angular/core";
 import { PaginationBase } from "../../../../modules/shared/models/paginationBase";
 import { StudentService } from "./../../services/student.service";
 import { FormBuilder } from "@angular/forms";
@@ -17,7 +17,7 @@ export class StudentDetailsComponent implements OnInit {
   currentPage = 1;
 
   isShowCreate = false;
-  @Output() addNewStudentClicked = new EventEmitter<Event>();
+  editStudentId: string; // Student ID passed from Parent to Child component
 
   constructor(
     private studentService: StudentService,
@@ -48,6 +48,7 @@ export class StudentDetailsComponent implements OnInit {
 
   addNewStudent() {
     this.isShowCreate = true;
+    this.editStudentId = "";
   }
 
   closeNewStudentEventClicked(event: Event) {
@@ -57,5 +58,10 @@ export class StudentDetailsComponent implements OnInit {
   addNewStudentEventSaved(event: Event) {
     this.currentPage = 1;
     this.getStudentDetails();
+  }
+
+  editStudent(studentId: string) {
+    this.isShowCreate = true;
+    this.editStudentId = studentId;
   }
 }

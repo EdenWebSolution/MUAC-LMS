@@ -29,7 +29,7 @@ export abstract class BaseService {
         status: error.status
       };
     } else if (error.status === 401 && isLogin) {
-      sessionStorage.removeItem("MUAC-TokenId");
+      localStorage.removeItem("TokenId");
       this.errorMessage = {
         message: "Invalid username or password",
         status: error.status
@@ -40,7 +40,7 @@ export abstract class BaseService {
       error.status === 404 ||
       error.status === 408
     ) {
-      sessionStorage.removeItem("MUAC-TokenId");
+      localStorage.removeItem("TokenId");
       this.errorMessage = {
         message: "Your login time has been expired, login again",
         status: error.status

@@ -55,6 +55,9 @@
                   </td>
                   <td>
                     <button>Delete</button>
+                    <button (click)="editStudent(student.storeUserId)">
+                      Edit
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -76,5 +79,8 @@
   <app-student-create
     (closeNewStudentClicked)="closeNewStudentEventClicked($event)"
     (addNewStudentSaved)="addNewStudentEventSaved($event)"
+    [studentId]="editStudentId"
   ></app-student-create>
 </div>
+
+<!-- (editStudentClicked)="editStudentEventClicked($event)" -->

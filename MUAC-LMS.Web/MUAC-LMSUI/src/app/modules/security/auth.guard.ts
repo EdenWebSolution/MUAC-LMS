@@ -17,7 +17,7 @@ export class AuthGuard extends BaseService implements CanActivate {
     if (localStorage.getItem("TokenId") === null) {
       localStorage.removeItem("TokenId");
       this.notificationService.errorMessage(
-        "Your login time has been expired, login again"
+        "Your login time has been expired, please login again"
       );
 
       this.router.navigate(["/login"]);

@@ -31,4 +31,23 @@ export class StudentService extends BaseService {
       )
       .pipe(catchError(this.handleError));
   }
+
+  getStudentById(studentId: string) {
+    return this.http
+      .get<StudentModel>(
+        `${this.baseEndPoint}/api/Student/GetStudentById/${studentId}`,
+        this.httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  updateStudent(studentModel: StudentModel) {
+    return this.http
+      .put(
+        `${this.baseEndPoint}/api/Student/UpdateStudent`,
+        studentModel,
+        this.httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
 }

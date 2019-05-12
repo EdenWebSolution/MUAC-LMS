@@ -23,6 +23,7 @@ namespace MUAC_LMS.Service.Student
             this.securityService = securityService;
             this.mapper = mapper;
         }
+
         public async Task CreateStudentAsync(StudentCreateModel studentCreateModel)
         {
             var userModel = await securityService.CreateNewUserAsync(new UserModel { Name = studentCreateModel.Name });
