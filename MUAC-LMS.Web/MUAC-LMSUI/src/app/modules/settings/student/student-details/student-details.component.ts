@@ -74,20 +74,19 @@ export class StudentDetailsComponent implements OnInit {
       dangerMode: true
     }).then(willDelete => {
       if (willDelete) {
-        // this.studentService.deleteStudent(studentId).subscribe(
-        //   res => {
-        //     this.currentPage = 1;
-        //  this.getStudentDetails();
-
-        //   },
-        //   error => {
-        //     console.log(error);
-        //   }
-        // );
-        this.isShowCreate = !this.isShowCreate;
-        swal("Poof! Your imaginary file has been deleted!", {
-          icon: "success"
-        });
+        this.studentService.deleteStudent(studentId).subscribe(
+          res => {
+            this.currentPage = 1;
+            this.getStudentDetails();
+            this.isShowCreate = false;
+            swal("Student has been deleted successfuly!", {
+              icon: "success"
+            });
+          },
+          error => {
+            console.log(error);
+          }
+        );
       }
     });
   }

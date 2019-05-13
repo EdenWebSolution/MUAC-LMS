@@ -66,7 +66,7 @@ export class TeacherDetailsComponent implements OnInit {
     this.editTeacherId = teacherId;
   }
 
-  deleteTeacher(studentId: string) {
+  deleteTeacher(teacherId: string) {
     swal({
       title: "Are you sure you want to Delete?",
       icon: "warning",
@@ -74,20 +74,19 @@ export class TeacherDetailsComponent implements OnInit {
       dangerMode: true
     }).then(willDelete => {
       if (willDelete) {
-        // this.studentService.deleteStudent(studentId).subscribe(
-        //   res => {
-        //     this.currentPage = 1;
-        //   this.getStudentDetails();
-
-        //   },
-        //   error => {
-        //     console.log(error);
-        //   }
-        // );
-        this.isShowCreate = !this.isShowCreate;
-        swal("Poof! Your imaginary file has been deleted!", {
-          icon: "success"
-        });
+        this.teacherService.deleteTeacher(teacherId).subscribe(
+          res => {
+            this.currentPage = 1;
+            this.getTeacherDetails();
+            this.isShowCreate = false;
+            swal("Teacher has been deleted successfuly!", {
+              icon: "success"
+            });
+          },
+          error => {
+            console.log(error);
+          }
+        );
       }
     });
   }

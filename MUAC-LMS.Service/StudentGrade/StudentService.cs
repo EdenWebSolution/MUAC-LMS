@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MUAC_LMS.Common;
 using MUAC_LMS.Data;
+using MUAC_LMS.Domain.User;
 using MUAC_LMS.Service.Contracts;
 using MUAC_LMS.Service.Models.Account;
 using MUAC_LMS.Service.Models.Student;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,12 +19,14 @@ namespace MUAC_LMS.Service.Student
     {
         private readonly MUACContext mUACContext;
         private readonly ISecurityService securityService;
+        private readonly UserManager<StoreUser> userManager;
         private readonly IMapper mapper;
 
-        public StudentService(MUACContext mUACContext, ISecurityService securityService, IMapper mapper)
+        public StudentService(MUACContext mUACContext, ISecurityService securityService, UserManager<StoreUser> userManager, IMapper mapper)
         {
             this.mUACContext = mUACContext;
             this.securityService = securityService;
+            this.userManager = userManager;
             this.mapper = mapper;
         }
 
@@ -51,7 +57,7 @@ namespace MUAC_LMS.Service.Student
             query = query.OrderBy(o => o.StoreUser.Name).Skip(paginationBase.Skip).Take(paginationBase.Take);
 
             var result = await query.AsNoTracking().ToListAsync();
-            
+
             var model = mapper.Map<IEnumerable<StudentModel>>(result);
 
             var resultSet = new PaginationModel<StudentModel>
@@ -72,11 +78,34 @@ namespace MUAC_LMS.Service.Student
 
         public async Task UpdateStudentAsync(StudentUpdateModel studentUpdateModel)
         {
-            var entity = await mUACContext.StudentGrades.Include(i => i.StoreUser).FirstOrDefaultAsync(w => w.StoreUser.Id == studentUpdateModel.StoreUserId && !w.StoreUser.IsDeleted);
-            entity.StoreUser.Name = studentUpdateModel.Name;
-            entity.StudentGrades = studentUpdateModel.StudentGrades;
+            try
+            {
+                var entity = await mUACContext.StudentGrades.Include(i => i.StoreUser).FirstOrDefaultAsync(w => w.StoreUser.Id == studentUpdateModel.StoreUserId && !w.StoreUser.IsDeleted);
+                entity.StoreUser.Name = studentUpdateModel.Name;
+                entity.StudentGrades = studentUpdateModel.StudentGrades;
 
-            await mUACContext.SaveChangesAsync();
+                await mUACContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task DeleteStudentAsync(string studentId)
+        {
+            try
+            {
+                var userStore = new UserStore<StoreUser>(mUACContext);
+
+                var entity = userManager.Users.FirstOrDefault(w => w.Id == studentId && !w.IsDeleted);
+                entity.IsDeleted = true;
+                await userStore.UpdateAsync(entity);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

@@ -50,4 +50,13 @@ export class TeacherService extends BaseService {
       )
       .pipe(catchError(this.handleError));
   }
+
+  deleteTeacher(teacherId: string) {
+    return this.http
+      .delete(
+        `${this.baseEndPoint}/api/Teacher/DeleteTeacher/${teacherId}`,
+        this.httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
 }

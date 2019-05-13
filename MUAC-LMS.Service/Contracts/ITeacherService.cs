@@ -13,5 +13,6 @@ namespace MUAC_LMS.Service.Contracts
         Task<PaginationModel<TeacherModel>> GetAllTeachers(PaginationBase paginationBase);
         TeacherModel GetTeacherById(string teacherId);
         Task UpdateTeacherAsync(TeacherUpdateModel teacherUpdateModel);
+        Task DeleteTeacherAsync(string teacherId);
     }
 }

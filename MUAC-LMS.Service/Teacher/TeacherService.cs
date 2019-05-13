@@ -78,5 +78,21 @@ namespace MUAC_LMS.Service.Teacher
             teacher.Name = teacherUpdateModel.Name;
             await userStore.UpdateAsync(teacher);
         }
+
+        public async Task DeleteTeacherAsync(string teacherId)
+        {
+            try
+            {
+                var userStore = new UserStore<StoreUser>(mUACContext);
+
+                var entity = userManager.Users.FirstOrDefault(w => w.Id == teacherId && !w.IsDeleted);
+                entity.IsDeleted = true;
+                await userStore.UpdateAsync(entity);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

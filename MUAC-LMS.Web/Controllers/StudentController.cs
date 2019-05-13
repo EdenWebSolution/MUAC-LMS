@@ -82,5 +82,20 @@ namespace MUAC_LMS.Web.Controllers
                 return BadRequest(new { message = "Something went wrong while creating a new teacher, please try again" });
             }
         }
+
+        [HttpDelete]
+        [Route("DeleteStudent/{studentId}")]
+        public async Task<IActionResult> DeleteStudent(string studentId)
+        {
+            try
+            {
+                await studentService.DeleteStudentAsync(studentId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message});
+            }
+        }
     }
 }
